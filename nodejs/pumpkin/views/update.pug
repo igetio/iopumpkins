@@ -1,0 +1,28 @@
+
+-for (var node in nodes)
+  div(class="modal-header")
+    button(type="button", class="close", data-dismiss="modal", aria-label="Close", onclick="getTable()") 
+      span(aria-hidden="true") &times;
+    h4(class="modal-title", id="myModalLabel") Update Node 
+  div(class="modal-body", id="modal-body")
+    div(id="msg-modal")
+    form(id="submitNode")
+      input(id="id", value="#{nodes[node].id}",type="hidden")
+      div(class="form-group") 
+        label(for="name") Name 
+        input(name="name", class="form-control", type="text", value=`${nodes[node].name}`)
+      div(class="form-group") 
+        label(for="address") Address 
+        input(name="address", class="form-control", type="text", value=`${nodes[node].address}`)
+      div(class="form-group") 
+        label(for="type") Type 
+        select( name="type", class="form-control")
+          if nodes[node].type=='sensor'
+            option(selected="selected") sensor
+            option prop
+          else
+            option sensor
+            option(selected="selected") prop
+  div(class="modal-footer")
+    button(type="button", class="btn btn-default", data-dismiss="modal") Close
+    button(type="button", name="save", class="btn btn-primary",onclick="submitNode('submitNode','/api/nodes/" + nodes[node].id +"')") Save changes

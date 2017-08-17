@@ -1,0 +1,18 @@
+extends bootstrap
+
+append footer  
+  script(src="/javascripts/update-sub.js")
+
+  script(src="/javascripts/mytable.js")
+
+
+block content
+  div(class="col-md-8 container", id="maintable")
+    table(id="example" class="display")
+      thead
+        tr
+          th ID
+          th Name
+          th Type
+          th Status
+          th Action

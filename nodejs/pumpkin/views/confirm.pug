@@ -1,0 +1,10 @@
+
+div(class="alert alert-warning alert-dismissible", role="alert")
+  button(type="button", class="close", data-dismiss="alert", aria-label="Close")
+    span(aria-hidden="true")
+      |&times; 
+  p(class="text-center") Are you sure you want to #{action} node #{nodeId}?
+     br
+     button(type="button", class="btn btn-default", data-dismiss="alert") No
+     | &nbsp;
+     button(type="button", class="btn btn-warning", onclick="deleteNode('/api/nodes/#{nodeId}')") Yes
