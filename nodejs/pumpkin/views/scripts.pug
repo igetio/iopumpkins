@@ -1,0 +1,43 @@
+extends bootstrap
+
+append footer  
+  
+  script(src="/javascripts/update-sub.js")
+  script(src="/javascripts/tables.js")
+
+
+block content
+  div(class="container", id="maintable")
+    div(class="row")
+      div(class="col-md-8 col-sm-6")
+        h3 Scripts
+      div(class="col-md-4 col-sm-2")
+        br
+        a(href="#", role="button", class="btn btn-primary", data-toggle="modal", data-target="#myModal", onclick="updateStep('/modal/scripts/new')") Add Script
+    div(class="row")
+      br
+    div(class="row")
+      div(class="col-md-12 col-sm-8")
+        table(id="example" class="display")
+          thead
+            tr
+              th Script ID
+              th Script Name
+              th Steps
+              th Options
+          tbody(id="maintable-body")
+            -for (var script in scripts)
+             tr
+               td #{scripts[script].scriptid}
+               td
+                 a(href="/scripts/"+ scripts[script].scriptid +"")= scripts[script].scriptname
+               td #{scripts[script].steps}
+               td
+                 div(class="btn-group")
+                    button(type="button", class="btn btn-primary btn-sm, dropdown-toggle", data-toggle="dropdown", aria-expanded="false") Options 
+                     span(class="caret")
+                    ul(class="dropdown-menu", role="menu")
+                      li
+                        a(href="#", data-toggle="modal", data-target="#myModal" onclick="updateStep('/modal/scripts/" + scripts[script].scriptid + "')") Update 
+                      li
+                        a(href="#", onclick="getConfirm('script/" + scripts[script].scriptid + "','delete')") Delete

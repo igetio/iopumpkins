@@ -1,0 +1,53 @@
+extends bootstrap
+
+append footer  
+  script(src="/javascripts/update-sub.js")
+
+  script(src="/javascripts/tables.js")
+
+
+block content
+  div(class="container", id="maintable")
+    div(class="row")
+      div(class="col-md-8 col-sm-6")
+        h3 #{title}
+    div(class="row")
+      br
+    div(class="row")
+      div(class="col-md-12 col-sm-8")
+        table(id="example" class="display")
+          thead
+            tr
+              th ID
+              th Name
+              th Type
+              th(class="hidden-xs") Status
+              th Action
+              th(class="hidden-xs") Last Response
+              th(class="hidden-xs") Volume
+              th(class="hidden-xs") Delay
+          tbody(id="maintable-body")
+            -for (var node in nodes)
+             tr
+               td #{nodes[node].nodeid}
+               td #{nodes[node].name}
+               td #{nodes[node].type}
+               td(class="hidden-xs") 
+                 if nodes[node].status=='1'
+                   | Active
+                 else
+                   | Idle
+               td
+                 div(class="btn-group")
+                    button(type="button", class="btn btn-primary btn-sm, dropdown-toggle", data-toggle="dropdown", aria-expanded="false") Action 
+                     span(class="caret")
+                    ul(class="dropdown-menu", role="menu")
+                      li
+                        a(href="#", onclick="updateStatus('/calls/' + nodes[node].nodeid + '/status','1')") Trigger
+                      li
+                        a(href="#", data-toggle="modal", data-target="#myModal" onclick="updateNode('/modal/nodes/" + nodes[node].nodeid + "')") Rename
+                      li
+                        a(href="#", onclick="getConfirm('" + nodes[node].nodeid + "','delete')") Delete
+               td(class="hidden-xs") #{nodes[node].lastresponse}
+               td(class="hidden-xs") #{nodes[node].volume}
+               td(class="hidden-xs") #{nodes[node].delay}

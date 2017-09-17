@@ -11,7 +11,9 @@ sqlite3 = require('sqlite3').verbose();
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var nodeapi = require('./routes/nodeapi');
+//var nodeapi = require('./routes/nodeapi');
+var calls = require('./routes/calls');
+var modal = require('./routes/modal');
 var mqtt = require('./routes/mqtt');
 var app = express();
 
@@ -32,7 +34,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/api/nodes', nodeapi);
+app.use('/calls', calls);
+app.use('/modal', modal);
+//app.use('/api/nodes', nodeapi);
 app.use('/mqtt', mqtt);
 
 // catch 404 and forward to error handler

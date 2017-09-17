@@ -1,0 +1,14 @@
+-for (var script in scripts)
+  div(class="modal-header")
+    button(type="button", class="close", data-dismiss="modal", aria-label="Close", onclick="getTable()") 
+      span(aria-hidden="true") &times;
+    h4(class="modal-title", id="myModalLabel") Update Script
+  div(class="modal-body", id="modal-body")
+   div(id="msg-modal")
+    form(id="submitScript")
+      div(class="form-group") 
+        label(for="name") Name 
+        input(name="name", class="form-control", type="text", value="" + scripts[script].scriptname+"")
+  div(class="modal-footer")
+    button(type="button", class="btn btn-default", data-dismiss="modal") Close
+    button(type="button", name="save", class="btn btn-primary",onclick="submitNode('submitScript','/calls/scripts/" + scripts[script].scriptid + "')") Save changes

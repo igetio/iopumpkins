@@ -2,10 +2,17 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 
+/*
+create table "nodeid" ("nodeid" char PRIMARY KEY, "address" VARCHAR(255), "type" char);
+create table "nodeinfo" ("nodeid" char PRIMARY KEY, "name" char, "status" int, "lastresponse" datetime, "volume" int, "delay" int);
+INSERT INTO scriptid (scriptid , scriptname) values('1','Give Them Candy');
 
+select ScriptID, Scriptname, count (step) From scriptid natural join scriptsteps;
+
+*/
 router.get('/', function (req, res) {
     format = req.query.format;
-	 db.all("select * FROM nodes", function(err, row) {
+	 db.all("select nodeid, address, name, type, status FROM nodeid natural join nodeinfo", function(err, row) {
     if(err !== null) {
       res.status(500).send( "An error has occurred -- " + err);
     }
@@ -19,16 +26,31 @@ router.get('/', function (req, res) {
 	}
   });
 });
-
+router.get('/scripts', function (req, res) {
+    format = req.query.format;
+	 db.all("select ScriptID, Scriptname, count (step) as steps From scriptid natural join scriptsteps;", function(err, row) {
+    if(err !== null) {
+      res.status(500).send( "An error has occurred -- " + err);
+    }
+    else {
+	  if(format === "html") {
+		res.render('scripts', { title: 'Scripts', scripts: row});
+	  }
+	  else {
+		res.json({ "data": row });
+	  }
+	}
+  });
+});
 // We define a new route that will handle node creation
 router.post('/', function(req, res) {
   format = req.query.format;
   address = req.query.address;
-  chipid = req.query.chipid;
+  nodeid = req.query.nodeid;
   type = req.query.type;
-  sqlRequest = "INSERT INTO 'nodes' (chipid, address, name, type, status) " +
-               "VALUES('" + chipid + "', '" + address + "', '" + chipid + "', '" + type + "', '0')"
-  if (!chipid || !address || !type) {
+  sqlRequest = "INSERT INTO 'nodes' (nodeid, address, name, type, status) " +
+               "VALUES('" + nodeid + "', '" + address + "', '" + nodeid + "', '" + type + "', '0')"
+  if (!nodeid || !address || !type) {
     res.send("Parameters missing please try again"); 
     
   }
@@ -38,7 +60,7 @@ db.run(sqlRequest, function(err) {
         res.status(500).send( "An error has occurred -- " + err);
       }
       else {
-        db.all("select chipid FROM nodes WHERE address='" + address + "' and chipid='" + chipid + "'", function(err, row) {
+        db.all("select nodeid FROM nodes WHERE address='" + address + "' and nodeid='" + nodeid + "'", function(err, row) {
           if(err !== null) {
             res.status(500).send( "An error has occurred -- " + err);
           }
@@ -129,7 +151,7 @@ router.put('/:id/status/:state(1|0)', function (req, res) {
 router.get('/:id', function (req, res) {
   format = req.query.format;
   id = req.params.id;
-  db.all("select * FROM nodes WHERE id='" + id + "'", function(err, row) {
+  db.all("select nodeid, name, address, type, status FROM nodeid natural join nodeinfo where nodeid='" + id + "'", function(err, row) {
     if(err !== null) {
       res.status(500).send( "An error has occurred -- " + err);
     }
@@ -184,7 +206,7 @@ router.put('/:id/:setParam(address|type)/:value', function(req, res) {
     }
     else {
 		if(format === "html") {
-         res.render('update-sub', {'title': 'Updated Node ' + nodeid, 'chipid': nodeid, 'setParam': setParam, 'value': value});
+         res.render('update-sub', {'title': 'Updated Node ' + nodeid, 'nodeid': nodeid, 'setParam': setParam, 'value': value});
 		}
 		else {
 		res.json({id: id, status: "updated"});

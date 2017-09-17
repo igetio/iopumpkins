@@ -35,8 +35,16 @@ html(lang="en")
               a(href="/") Home
             li
               a(href="/scripts") Scripts
-            li
-              a(href="/nodes") Nodes 
+            li(class="dropdown")
+              a(href="#", class="dropdown-toggle", data-toggle="dropdown", role="button", aria-haspopup="true", aria-expanded="false") Nodes
+                span(class="caret")
+              ul(class="dropdown-menu")
+                li
+                  a(href="/nodes") All 
+                li
+                  a(href="/nodes/props") Props 
+                li
+                  a(href="/nodes/sensors") Sensors 
 
     div(id="msgs")
     div(class="modal fade", id="myModal", tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")

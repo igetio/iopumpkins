@@ -1,0 +1,32 @@
+
+div(class="modal-header")
+  button(type="button", class="close", data-dismiss="modal", aria-label="Close") 
+    span(aria-hidden="true") &times;
+  h4(class="modal-title", id="myModalLabel") Update Script Step 
+div(class="modal-body", id="modal-body")
+  div(id="msg-modal")
+   form(id="submitScript")
+    div(class="form-group")
+      label(for="Script ID") Script ID
+      select( name="scriptid", id=scriptID, class="form-control")
+        -for (var script in scripts)
+          option(value=""+ scripts[script].scriptid +"", selected=( scripts[script].scriptid == scriptid)) #{scripts[script].scriptname}
+    div(class="form-group")
+      label(for="step") Step 
+      input(name="step", class="form-control", type="text", value=`${step}`)
+    div(class="form-group") 
+      label(for="node") Node 
+      select( name="Node", class="form-control")
+        -for (var node in nodes)
+          option(value=""+ nodes[node].nodeid +"" ) #{nodes[node].name}
+    div(class="form-group") 
+      label(for="action") Action 
+      select( name="action", class="form-control")
+        option play    
+        option trig
+    div(class="form-group")
+      label(for="track") Track 
+      input(name="track", class="form-control", type="text", value='0')  
+div(class="modal-footer")
+  button(type="button", class="btn btn-default", data-dismiss="modal") Close
+  button(type="button", name="save", class="btn btn-primary",onclick="submitNode('submitScript','/calls/steps/add')") Save changes

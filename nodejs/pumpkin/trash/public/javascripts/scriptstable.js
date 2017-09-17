@@ -3,7 +3,7 @@
 //    } );
 $(document).ready(function() {
     var table = $('#example').DataTable( {
-        "ajax": {"url": "/api/nodes",
+        "ajax": {"url": "/api/nodes/scripts",
         "dataType": "json"}
 ,
         "columnDefs": [ {
@@ -18,17 +18,15 @@ $(document).ready(function() {
                           "</div>"
        } ],
 "columns": [
-            { "data": "id" },
-            { "data": "name" },
-            { "data": "type" },
-            { "data": "status" },
-            { "data": "action" }
+            { "data": "Script ID" },
+            { "data": "Script Name" },
+            { "data": "steps" }
         ]
     } );
    $('#example tbody').on( 'click', 'li', function () {
         var data = table.row( $(this).parents('tr') ).data();
         var action = $(this).children('a').html();
-        actionButtons(data.id, data.status, action);
+        actionButtons(data.nodeid, data.status, action);
         table.ajax.reload( null, false );
 });
 } );

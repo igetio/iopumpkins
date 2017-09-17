@@ -1,6 +1,6 @@
 function alertPopupMessage(type, message){
-       $('#msgs').append("<div class=\"alert alert-" + type + " alert-dismissible\" role=\"alert\">"+
-	     "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\><span aria-hidden=\"true\">&times;</span></button>" +
+       $('#msgs').append("<div class=\"alert alert-" + type + " alert-dismissible\"  id=\"myAlert\" role=\"alert\">"+
+	     "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\><span aria-hidden=\"true\" onClick='location.reload()'>&times;</span></button>" +
 	     message + "</div>");
       }
 	 
@@ -43,6 +43,22 @@ function updateNode(dest){
 	 	})
 	 };
 	 
+function updateStep(dest){
+	 $(document).ready(function  () {
+		    $('#modal-body').html("Loading...");
+	 		$.ajax({
+             url: dest,
+             type: 'GET',
+             success: function(response) {
+                $('#modal-content').html(response);
+             },
+			 error: function(error) {
+                $('#modal-body').html(error);
+             }
+          });
+	 	})
+	 };	 
+
 function submitNode(form, dest){
 	 $(document).ready(function  () {
 	 		$.ajax({
@@ -50,7 +66,7 @@ function submitNode(form, dest){
              type: 'PUT',
 			 dataType: 'json',
              success: function(response) {
-                alertPopupMessage("success", "Updated Node " + response[0].id + " to with the following Address: " + response[0].address + ", Name: " + response[0].name + ", Type: " + response[0].type)
+                alertPopupMessage("success", "Updated Node " + response[0].nodeid + " to with the following Name: " + response[0].name )
                 $('#myModal').modal('hide');             
                 },
 			 error: function(error) {
@@ -60,7 +76,40 @@ function submitNode(form, dest){
           });
 	 })
 	};
+function deleteNode(dest){
+	 $(document).ready(function  () {
+	 		$.ajax({
+             url: dest,
+             type: 'delete',
+			 dataType: 'json',
+             success: function(response) {
+                 location.reload();             
+                },
+			 error: function(error) {
+                alertPopupMessage("alert", error)
+             }
+             
+          });
+	 })
+	};
 
+function playScript(script){
+	 $(document).ready(function  () {
+	 		$.ajax({
+             url: "/mqtt/scripts/" + script,
+             type: 'get',
+			 dataType: 'json',
+             success: function(response) {
+                              
+                },
+			 error: function(error) {
+                
+             }
+             
+          });
+	 })
+	};  
+  
 	function getConfirm(node,action){
 	 $(document).ready(function  () {
 	 		$.ajax({
@@ -75,3 +124,7 @@ function submitNode(form, dest){
           });
 	 	})
 	 };
+
+
+
+

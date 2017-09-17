@@ -1,0 +1,48 @@
+extends bootstrap
+
+append footer  
+  script(src="/javascripts/update-sub.js")
+
+  script(src="/javascripts/tables.js")
+
+
+block content
+  div(class="container", id="maintable")
+    div(class="row")
+      -for (var scriptr in scriptrow)
+        div(class="col-md-8 col-sm-6")
+          h3 Script: #{scriptrow[scriptr].scriptname}
+        div(class="col-md-4 col-sm-2")
+          p
+            br
+            a(href="#", role="button", class="btn btn-primary", data-toggle="modal", data-target="#myModal", onclick="updateStep('/modal/steps/new/" + scriptid + "/1')") Add Step
+    div(class="row")
+      div(class="col-md-12 col-sm-8")
+        table(id="example" class="display")
+          thead
+            tr
+              th Step
+              th Name
+              th Action
+              th Track
+              th Options
+          tbody(id="maintable-body")
+            -for (var steps in scriptsteps)
+             tr
+               td #{scriptsteps[steps].step}
+               td #{scriptsteps[steps].name}
+               td #{scriptsteps[steps].action}
+               td #{scriptsteps[steps].track}
+               td
+                 div(class="btn-group")
+                    button(type="button", class="btn btn-primary btn-sm, dropdown-toggle", data-toggle="dropdown", aria-expanded="false") Options 
+                     span(class="caret")
+                    ul(class="dropdown-menu", role="menu")
+                      li
+                        a(href="#", data-toggle="modal", data-target="#myModal" onclick="updateStep('/modal/steps/" + scriptsteps[steps].scriptid + "/" + scriptsteps[steps].id + "')") Update 
+                      li
+                        a(href="#", onclick="getConfirm('step/" + scriptsteps[steps].id + "','delete')") Delete
+                      li
+                        a(href="#", data-toggle="modal", data-target="#myModal" onclick="updateNode('/modal/steps/new/" + scriptid + "/" + scriptsteps[steps].prevstep + "')") Add Before
+                      li
+                        a(href="#", data-toggle="modal", data-target="#myModal" onclick="updateNode('/modal/steps/new/" + scriptid + "/" + scriptsteps[steps].nextstep + "')") Add After
