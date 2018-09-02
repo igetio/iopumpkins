@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var mqtt = require('mqtt');
-var mqttclient  = mqtt.connect('mqtt://ceres');
+var mqttclient  = mqtt.connect('mqtt://localhost');
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
