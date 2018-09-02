@@ -1,5 +1,16 @@
 # Pumpkinpi
-Pumpkin control project
+  * [Pumpkin Control Project Overview](#pumpkin-control-project-overview)
+  * [Raspberrypi Setup](#raspberrypi-setup)
+    + [Installing RabbitMQ and MQTT](#installing-rabbitmq-and-mqtt)
+      - [Basic Setup of RabbitMQ](#basic-setup-of-rabbitmq)
+      - [Optional - Install RabbitMQ admin site](#optional---install-rabbitmq-admin-site)
+    + [Setting up Node site:](#setting-up-node-site)
+      - [Basic Setup of Node and sqlite3](#basic-setup-of-node-and-sqlite3)
+      - [Running Node as Background Process:](#running-node-as-background-process)
+  * [Arduino Setup](#arduino-setup)
+    + [Basic IDE setup](#basic-ide-setup)
+
+## Pumpkin Control Project Overview
 The purpose of this project is to create a raspberry pi controller for a haloween display. It uses node and mqtt running on the rasspberrypi. It uses esp8266 wifi cards to communicate with MQTT and the raspberrypi manages what actions to take for each module and places the messages into MQTT for the modules to process.
 
 There are two parts to this project the rapsberrypi setup and configuration and the arduino module setup 
@@ -23,7 +34,7 @@ There are two parts to this project the rapsberrypi setup and configuration and 
     3. Run `rabbitmqctl set_user_tags admin administrator`
 3. Connect to Console via https://<SERVERNAME>:15672
 
-### Setting up Node site:
+### Setting up Node site
 #### Basic Setup of Node and sqlite3
 (The version on my pi is currently v8.x LTS)
 1. Install node.js 
@@ -39,7 +50,7 @@ There are two parts to this project the rapsberrypi setup and configuration and 
         3. Run `npm install`
 5. Create the database with `sqlite3 pumpkinpi.db < pumpkinpi.sql`
 6. Start the node server `npm start` 
-#### Running Node as Background Process:
+#### Running Node as Background Process
 1. Run `sudo npm install -g forever`
 2. from the `nodejs/pumpkin` folder run `forever start -w ./bin/www`
 
