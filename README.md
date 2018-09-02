@@ -4,7 +4,7 @@ The purpose of this project is to create a raspberry pi controller for a halowee
 
 
 
-##Setting up Node site:
+## Setting up Node site:
 (The version on my pi is currently v8.x LTS)
 
 1. Install node.js 
