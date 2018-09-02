@@ -2,7 +2,12 @@
 Pumpkin control project
 The purpose of this project is to create a raspberry pi controller for a haloween display. It uses node and AP mode for the PI. It uses esp8266 wifi cards to communicate with the pi and receive notification from the pi.
 
-
+## Installing RabbitMQ and MQTT
+1. Install Rabbitmq
+    1. Run `sudo apt-get install rabbitmq-server`
+2. Install MQTT Plugin
+    1. Run `rabbitmq-plugins enable rabbitmq_mqtt`
+3. Run ``
 
 ## Setting up Node site:
 (The version on my pi is currently v8.x LTS)
