@@ -15,9 +15,9 @@ The purpose of this project is to create a raspberry pi controller for a halowee
 3. Download this repo and extract it
 4. Navigate to the nodejs/pumpkin folder and run `npm install`
     1. Optional update dependencies
-      1. Run `sudo npm install -g npm-check-updates` 
-      2. Run `ncu -u`
-      3. Run `npm install'
+        1. Run `sudo npm install -g npm-check-updates` 
+        2. Run `ncu -u`
+        3. Run `npm install'
 5. Create the database with `sqlite3 pumpkinpi.db < pumpkinpi.sql`
 5. Start the node server `npm start` 
   - Running Node as Background Process:
