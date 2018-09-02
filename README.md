@@ -8,7 +8,7 @@ The purpose of this project is to create a raspberry pi controller for a halowee
 (The version on my pi is currently v8.x LTS)
 
 1. Install node.js 
-  1. Run `curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -`
+    1. Run `curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -`
   2. Run `sudo apt install -y nodejs`
 2. Install sqlite3
   1. Run `sudo apt-get install sqlite3`
